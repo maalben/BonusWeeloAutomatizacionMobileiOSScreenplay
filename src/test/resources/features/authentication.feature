@@ -9,8 +9,8 @@ Feature: I as a user want to authenticate in the demo application sauceLabs to c
     Then I should see the title screen expected
 
     Examples:
-      | user          | pass         | expected  |
-      | standard_user | secret_sauce | PRODUCTOS |
+      | user          | pass         | expected |
+      | standard_user | secret_sauce | PRODUCTS |
 
 
   @CP002
@@ -22,6 +22,9 @@ Feature: I as a user want to authenticate in the demo application sauceLabs to c
     Then I should see the alert with message expected
 
     Examples:
-      | user            | pass         | expected                                                                  |
-      | locked_out_user | secret_sauce | Lo sentimos, este usuario ha sido bloqueado.                              |
-      | admin           | secret_sauce | El usuario y contraseña no coinciden con ningun usuario en este servicio. |
+      | user            | pass         | expected                                                     |
+      | locked_out_user | secret_sauce | Sorry, this user has been locked out.                        |
+      | admin           | secret_sauce | Username and password do not match any user in this service. |
+      | null            | secret_sauce | Username is required |
+#      | locked_out_user | secret_sauce | Lo sentimos, este usuario ha sido bloqueado.                              |
+#      | admin | secret_sauce | El usuario y contraseña no coinciden con ningun usuario en este servicio. |

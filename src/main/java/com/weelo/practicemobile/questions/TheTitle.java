@@ -22,7 +22,7 @@ public class TheTitle implements Question<Boolean> {
         actor.attemptsTo(WaitUntil.the(LABEL_PRODUCTS, isVisible()).forNoMoreThan(TIME).seconds());
         if (LABEL_PRODUCTS.resolveFor(actor).isVisible()) {
             flag = true;
-            validateSendValues.assertThat(Text.of(LABEL_PRODUCTS).viewedBy(actor).asString())
+            validateSendValues.assertThat(Text.of(LABEL_PRODUCTS).answeredBy(actor).toString())
                     .isEqualTo(TestData.getData().get(EXPECTED).toString());
             validateSendValues.assertAll();
         }

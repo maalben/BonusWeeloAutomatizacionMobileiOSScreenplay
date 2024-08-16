@@ -1,12 +1,22 @@
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: 'net.serenity-bdd.aggregator'
+apply plugin: "net.serenity-bdd.serenity-gradle-plugin"
 
-group 'EjercicioBonusWeeloAutomatizacionIOSScreenplay'
+group 'RetoAutomatizacionIonix'
 version '1.0'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+
+//apply plugin: "net.serenity-bdd.aggregator"
+
+serenity {
+    // Specify the root package of any JUnit acceptance tests to appear in the Serenity report
+    testRoot = "starter"
+    // Specify the root directory of any Cucumber feature files
+    requirementsDir = "src/test/resources/features"
+}
+
+sourceCompatibility = 11
+targetCompatibility = 11
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
@@ -20,31 +30,35 @@ repositories {
 
 buildscript {
     repositories {
-
-        mavenLocal()
-        jcenter()
-        mavenCentral()
-
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
+
+    // Gradle Plugins
     dependencies {
-        classpath("net.serenity-bdd:serenity-gradle-plugin:1.9.45")
+        classpath "net.serenity-bdd:serenity-gradle-plugin:3.3.10",
+                "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:3.3",
+                "gradle.plugin.com.hierynomus.gradle.plugins:license-gradle-plugin:0.16.1",
+                "org.projectlombok:lombok:1.18.20"
     }
 }
 
 ext{
-    serenityVersion = '1.9.45'
-    serenityCucumberVersion = '1.9.4'
+    serenityVersion = '3.3.10'
+    serenityCucumberVersion = '3.3.10'
+    junit4 = '4.13.2'
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testImplementation("junit:junit:${junit4}")
     implementation 'org.assertj:assertj-core:3.13.2'
     testImplementation 'org.slf4j:slf4j-simple:1.7.7'
-    testImplementation "net.serenity-bdd:serenity-core:$rootProject.ext.serenityVersion"
-    testImplementation "net.serenity-bdd:serenity-junit:$rootProject.ext.serenityVersion"
-    implementation "net.serenity-bdd:serenity-screenplay:$rootProject.ext.serenityVersion"
-    implementation "net.serenity-bdd:serenity-cucumber:$rootProject.ext.serenityCucumberVersion"
-    implementation group: 'io.appium', name: 'java-client', version: '6.1.0'
+    testImplementation 'org.seleniumhq.selenium:selenium-java:4.5.0'
+    testImplementation "net.serenity-bdd:serenity-core:${serenityVersion}"
+    testImplementation "net.serenity-bdd:serenity-junit:${serenityVersion}"
+    implementation "net.serenity-bdd:serenity-screenplay:${serenityVersion}"
+    implementation "net.serenity-bdd:serenity-cucumber:${serenityCucumberVersion}"
+    testImplementation 'io.appium:java-client:8.3.0'
 }
-
 gradle.startParameter.continueOnFailure = true

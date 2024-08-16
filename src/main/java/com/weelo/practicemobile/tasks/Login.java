@@ -14,7 +14,9 @@ public class Login implements Task {
 
     @Override
     public <T extends Actor> void performAs(T actor) {
-           actor.attemptsTo(Enter.theValue(TestData.getData().get(USER).toString()).into(TEXTFIELD_USER));
+        if(!TestData.getData().get(USER).toString().equals("null")){
+            actor.attemptsTo(Enter.theValue(TestData.getData().get(USER).toString()).into(TEXTFIELD_USER));
+        }
            actor.attemptsTo(Enter.theValue(TestData.getData().get(PASS).toString()).into(TEXTFIELD_PASSWORD));
            actor.attemptsTo(Click.on(BUTTON_LOGIN));
     }

@@ -15,7 +15,7 @@ public class TheAlert implements Question<String> {
     @Override
     public String answeredBy(Actor actor) {
         actor.attemptsTo(WaitUntil.the(ALERT_MESSAGE_ERROR.of(TestData.getData().get(EXPECTED).toString()), isVisible()).forNoMoreThan(TIME).seconds());
-        return Text.of(ALERT_MESSAGE_ERROR.of(TestData.getData().get(EXPECTED).toString().trim())).viewedBy(actor).asString();
+        return Text.of(ALERT_MESSAGE_ERROR.of(TestData.getData().get(EXPECTED).toString().trim())).answeredBy(actor).toString();
     }
 
     public static TheAlert message() {
